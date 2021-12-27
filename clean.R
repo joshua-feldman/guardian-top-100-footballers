@@ -20,7 +20,7 @@ save_cleaned_data <- function(raw_data) {
   colnames(df) <- str_remove_all(colnames(df), "sheets.players.")
   
   # Save cleaned data
-  write.csv(df, str_replace(raw_data, "raw", "cleaned"), row.names = FALSE)
+  write.csv(df, str_replace(raw_data, "raw", "clean"), row.names = FALSE)
   
 }
 
