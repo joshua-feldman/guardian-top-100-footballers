@@ -53,7 +53,7 @@ df_combined <- df_2022_mod %>%
     club %in% c("Schalke") ~ "Germany",
     club %in% c("Benfica") ~ "Portugal",
     club %in% c("Anzhi Makhachkala", "CSKA Moscow") ~ "Russia",
-    club %in% c("Al Nassr") ~ "Saudi Arabia",
+    club %in% c("Al Nassr ") ~ "Saudi Arabia",
     club %in% c("Celtic") ~ "Scotland",
     club %in% c("Fenerbahce") ~ "Turkey",
     TRUE ~ league
