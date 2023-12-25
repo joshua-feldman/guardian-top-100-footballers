@@ -1,10 +1,17 @@
 library(tidyverse)
 
-df <- read_csv("data/male-clean-combined-2022.csv")
+df <- read_csv("data/male-clean-combined-2023.csv")
+
+df_2023 <- df %>% 
+  filter(year == 2023)
+
+table(df_2023$club) %>% sort()
+table(df_2023$league) %>% sort()
+table(df_2023$nationality) %>% sort()
 
 # Ranking of certain players over time
 df %>%
-  filter(name %in% c("Lionel Messi", "Cristiano Ronaldo")) %>%
+  filter(name %in% c("Erling Haaland", "Jude Bellingham", "Kylian Mbappé")) %>%
   ggplot(aes(year, rank, color = name)) +
   geom_line() +
   geom_point() +

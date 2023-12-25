@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+      .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      var svg = d3.select("svg"),
+          margin = {top: 20, right: 20, bottom: 30, left: 50},
+          width = +svg.attr("width") - margin.left - margin.right,
+          height = +svg.attr("height") - margin.top - margin.bottom,
+          g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      var x = d3.scaleLinear()
+          .rangeRound([0, width]);
+
+      var y = d3.scaleLinear()
+          .rangeRound([height, 0]);
+
+      var line = d3.line()
+          .x(function(d) { return x(d.year); })
+          .y(function(d) { return y(d.rank); });
+
+
+
+      var data = d3.csv("data.csv").then(function(data) {
+
+        data = data.filter(function(d){ return d.name == "Cristiano Ronaldo" });
+
+        x.domain(d3.extent(data, function(d) { return d.year; }));
+        y.domain(d3.extent(data, function(d) { return d.rank; }));
+
+        g.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+          .append("text")
+            .attr("fill", "#000")
+            .attr("y", 20)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end")
+            .text("Year");
+
+        g.append("g")
+            .call(d3.axisLeft(y))
+          .append("text")
+            .attr("fill", "#000")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end")
+            .text("Rank");
+
+        g.append("path")
+            .datum(data)
+            .attr("class", "line")
+            .attr("d", line);
+      })
+    </script>
+  </body>
+</html>
